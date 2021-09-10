@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services
+        https://symfony.com/schema/dic/services/services-1.0.xsd">
+    <services>
+        <defaults autowire="true" autoconfigure="true" />
+
+        <service id="php-saml.auth" class="OneLogin\Saml2\Auth">
+            <argument key="$settings" type="ärray" id="conduction_saml.settings"/>
+        </service>
+        <!-- Default Controller -->
+        <service id="conduction_saml.saml_controller" class="Conduction\SamlBundle\Controller\SamlController" public="true">
+            <call method="setContainer">
+                <argument type="service" id="Psr\Container\ContainerInterface"/>
+            </call>
+            <tag name="container.service_subscriber"/>
+        </service>
+
+        <service id="Conduction\SamlBundle\Service\SamlService" />
+    </services>
+</container>
