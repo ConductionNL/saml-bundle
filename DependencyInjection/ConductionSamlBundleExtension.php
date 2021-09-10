@@ -7,6 +7,14 @@ use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 
 class ConductionSamlBundleExtension extends Extension implements PrependExtensionInterface
 {
+
+    public function load(array $configs, ContainerBuilder $container)
+    {
+        $loader = new XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
+        $loader->load('services.xml');
+        $loader->load('routes.xml');
+    }
+
     public function prepend(ContainerBuilder $container)
     {
         $configs = $container->getExtensionConfig($this->getAlias());
