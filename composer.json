@@ -1,6 +1,6 @@
 {
 	"name" : "conduction/samlbundle",
-	"type" : "library",
+	"type" : "symfony-bundle",
 	"description" : "Symfony Bundle for SAML configuration",
 	"keywords" : [
 		"saml"
