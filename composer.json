@@ -3,7 +3,7 @@
 	"type" : "library",
 	"description" : "Symfony Bundle for SAML configuration",
 	"keywords" : [
-		"saml",
+		"saml"
 	],
 	"homepage" : "https://conduction.nl",
 	"license" : "MIT",
