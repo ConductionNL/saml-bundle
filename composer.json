@@ -1,5 +1,5 @@
 {
-	"name" : "conduction/commongroundbundle",
+	"name" : "conduction/samlbundle",
 	"type" : "library",
 	"description" : "Symfony Bundle for SAML configuration",
 	"keywords" : [
