@@ -19,7 +19,6 @@
 		"php" : "^7.4.0",
 		"symfony/event-dispatcher" : "^5.0",
 		"symfony/cache" : "^5.0@stable",
-		"symfony/cache-contracts" : "^1.1@stable",
 		"symfony/console" : "^5.0@stable",
 		"guzzlehttp/guzzle": "^6.3",
 		"ramsey/uuid": "^3.8",
