@@ -7,7 +7,7 @@
         <defaults autowire="true" autoconfigure="true" />
 
         <service id="php-saml.auth" class="OneLogin\Saml2\Auth">
-            <argument key="$settings" type="array" id="conduction_saml.settings"/>
+            <argument key="$settings" type="iterator" id="conduction_saml.settings"/>
         </service>
         <!-- Default Controller -->
         <service id="conduction_saml.saml_controller" class="Conduction\SamlBundle\Controller\SamlController" public="true">
