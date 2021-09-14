@@ -15,6 +15,11 @@ class ConductionSamlBundleExtension extends Extension implements PrependExtensio
         $loader->load('routes.xml');
     }
 
+    public function getAlias()
+    {
+        return 'conduction_saml';
+    }
+
     public function prepend(ContainerBuilder $container)
     {
         $configs = $container->getExtensionConfig($this->getAlias());
