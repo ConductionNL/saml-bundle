@@ -3,6 +3,7 @@
 
 namespace Conduction\SamlBundle\Service;
 
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
 class SamlService
 {
