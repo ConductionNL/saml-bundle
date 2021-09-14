@@ -5,9 +5,13 @@
         https://symfony.com/schema/dic/services/services-1.0.xsd">
     <services>
         <defaults autowire="true" autoconfigure="true" />
+
+        <service id="php-saml.auth" class="\OneLogin\Saml2\Auth">
+            <argument key="$settings">%saml%</argument>
+        </service>
         <!-- Default Controller -->
         <service id="conduction_saml.saml_controller" class="Conduction\SamlBundle\Controller\SamlController" public="true">
-            <argument key="$settings">%saml%</argument>
+            <argument key="$samlAuth" type="service" id="php-saml.auth"/>
             <call method="setContainer">
                 <argument type="service" id="Psr\Container\ContainerInterface"/>
             </call>

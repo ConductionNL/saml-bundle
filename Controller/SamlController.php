@@ -20,12 +20,9 @@ class SamlController extends AbstractController
     private XmlEncoder $xmlEncoder;
     private SamlService $samlService;
 
-    public function __construct($settings, SamlService $samlService)
+    public function __construct($samlAuth, SamlService $samlService)
     {
-        var_dump($settings);
-
-
-        $this->samlAuth = new Auth($settings);
+        $this->samlAuth = $samlAuth;
         $this->xmlEncoder = new XmlEncoder();
         $this->samlService = $samlService;
     }
