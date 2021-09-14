@@ -7,7 +7,7 @@ use Symfony\Bundle\FrameworkBundle\DependencyInjection\Configuration;
 use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 
-class ConductionSamlBundleExtension extends Extension implements PrependExtensionInterface
+class SamlBundleExtension extends Extension implements PrependExtensionInterface
 {
 
     public function load(array $configs, ContainerBuilder $container)
