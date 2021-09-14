@@ -29,5 +29,6 @@ class SamlExtension extends Extension
                 $value
             );
         }
+        $container->setParameter('saml', $processedConfiguration);
     }
 }
