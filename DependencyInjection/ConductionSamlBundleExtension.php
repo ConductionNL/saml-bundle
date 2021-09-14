@@ -1,5 +1,7 @@
 <?php
 
+namespace Conduction\SamlBundle\DependencyInjection;
+
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Bundle\FrameworkBundle\DependencyInjection\Configuration;
 use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
@@ -13,11 +15,6 @@ class ConductionSamlBundleExtension extends Extension implements PrependExtensio
         $loader = new XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.xml');
         $loader->load('routes.xml');
-    }
-
-    public function getAlias()
-    {
-        return 'conduction_saml';
     }
 
     public function prepend(ContainerBuilder $container)
