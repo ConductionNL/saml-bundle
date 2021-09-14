@@ -40,7 +40,7 @@ saml:
     privateKey: '%env(file:APP_KEY)%'
     x509cert: '%env(file:APP_CERT)%'
   # Optional settings
-  baseurl: 'https://acc-waardepapieren.hoorn.nl'
+  baseurl: '%env(APP_URL)%'
   strict: false
   debug: true
   security:

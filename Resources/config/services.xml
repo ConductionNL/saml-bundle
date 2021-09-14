@@ -7,7 +7,7 @@
         <defaults autowire="true" autoconfigure="true" />
         <!-- Default Controller -->
         <service id="conduction_saml.saml_controller" class="Conduction\SamlBundle\Controller\SamlController" public="true">
-            <argument key="$settings" type="iterator" id="saml"/>
+            <argument key="$settings">%saml%</argument>
             <call method="setContainer">
                 <argument type="service" id="Psr\Container\ContainerInterface"/>
             </call>
