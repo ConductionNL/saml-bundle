@@ -8,8 +8,8 @@
 	"homepage" : "https://conduction.nl",
 	"license" : "MIT",
 	"authors" : [{
-			"name" : "Ruben van der Linde",
-			"email" : "ruben@conduction.nl"
+			"name" : "Robert Zondervan",
+			"email" : "robert@conduction.nl"
 		}, {
 			"name" : "Conduction",
 			"homepage" : "https://conduction.nl"
@@ -25,6 +25,9 @@
 		"onelogin/php-saml": "^4.0"
 	},
 	"autoload" : {
+		"psr-4": {
+			"Conduction\\SamlBundle\\": ""
+		},
 		"exclude-from-classmap" : [
 			"/Tests/"
 		]
