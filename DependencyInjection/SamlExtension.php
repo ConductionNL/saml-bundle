@@ -25,7 +25,7 @@ class SamlExtension extends Extension
 
         foreach ($processedConfiguration as $key => $value) {
             $container->setParameter(
-                $this->getAlias().'.'.$key,
+                'saml.'.$key,
                 $value
             );
         }
