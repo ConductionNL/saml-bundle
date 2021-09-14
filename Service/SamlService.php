@@ -137,7 +137,7 @@ class SamlService
                 '@xmlns:ds' => 'http://www.w3.org/2000/09/xmldsig#',
                 'ds:KeyName',
                 'ds:X509Data' => [
-                    'ds:X509Certificate' => str_replace("-----BEGIN CERTIFICATE-----\n", '', str_replace("\n-----END CERTIFICATE-----", '', $this->getParameter('app_x509_cert'))),
+                    'ds:X509Certificate' => str_replace("-----BEGIN CERTIFICATE-----\n", '', str_replace("\n-----END CERTIFICATE-----", '', $this->parameterBag->get('app_x509_cert'))),
                 ],
             ],
             'md:EncryptionMethod' => $this->getEncryptionMethod(),
