@@ -17,22 +17,22 @@ class SamlExtension extends Extension
         $loader->load('routes.xml');
     }
 
-    public function prepend(ContainerBuilder $container)
-    {
-        $configs = $container->getExtensionConfig($this->getAlias());
-
-        $resolvingBag = $container->getParameterbag();
-        $configs = $resolvingBag->resolveValue($configs);
-
-        $config = $this->processConfiguration(new Configuration(), $configs);
-        $config = $this->getDefaultConfig();
-        $container->prependExtensionConfig('conduction_saml', $config);
-
-        $container->setParameter('conduction_saml.settings', $config);
-
-        $parameters = $this->getDefaultParameters();
-        $container->prependExtensionConfig('parameters', $parameters);
-    }
+//    public function prepend(ContainerBuilder $container)
+//    {
+//        $configs = $container->getExtensionConfig($this->getAlias());
+//
+//        $resolvingBag = $container->getParameterbag();
+//        $configs = $resolvingBag->resolveValue($configs);
+//
+//        $config = $this->processConfiguration(new Configuration(), $configs);
+//        $config = $this->getDefaultConfig();
+//        $container->prependExtensionConfig('conduction_saml', $config);
+//
+//        $container->setParameter('conduction_saml.settings', $config);
+//
+//        $parameters = $this->getDefaultParameters();
+//        $container->prependExtensionConfig('parameters', $parameters);
+//    }
 
     public function getDefaultSp(): array
     {
