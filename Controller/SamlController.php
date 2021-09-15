@@ -66,7 +66,35 @@ class SamlController extends AbstractController
         }
         $data = $this->xmlEncoder->decode($samlResponse, 'xml');
         echo '<pre>';
-        var_dump($data['Assertion']['AttributeStatement']['Attribute']);
+        foreach($data['Assertion']['AttributeStatement']['Attribute'] as $attribute)
+        {
+            switch($attribute['@Name']){
+                case 'http://schemas.microsoft.com/identity/claims/tenantid':
+                    echo "Tenant Id: {$attribute['AttributeValue']}\n";
+                    break;
+                case 'http://schemas.microsoft.com/identity/claims/objectidentifier':
+                    echo "Object Id: {$attribute['AttributeValue']}\n";
+                    break;
+                case 'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name':
+                    echo "Username: {$attribute['AttributeValue']}\n";
+                    break;
+                case 'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/surname':
+                    echo "Surname: {$attribute['AttributeValue']}\n";
+                    break;
+                case 'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/givenname':
+                    echo "Given name: {$attribute['AttributeValue']}\n";
+                    break;
+                case 'http://schemas.microsoft.com/identity/claims/displayname':
+                    echo "Display name: {$attribute['AttributeValue']}\n";
+                    break;
+                case 'http://schemas.microsoft.com/identity/claims/identityprovider':
+                    echo "Identity Provider: {$attribute['AttributeValue']}\n";
+                    break;
+                case 'http://schemas.microsoft.com/claims/authnmethodsreferences':
+                    echo "Authn Method References: {$attribute['AttributeValue']}\n";
+                    break;
+            }
+        }
 
         die;
     }
