@@ -58,6 +58,7 @@ class SamlController extends AbstractController
 
     public function artifactAction(Request $request): Response
     {
+        var_dump($request->attributes->get('_route'));
         if($request->getMethod() == 'POST')
         {
             $samlResponse = base64_decode($request->request->all()['SAMLResponse']);
@@ -65,7 +66,6 @@ class SamlController extends AbstractController
             $samlResponse = '';
         }
         $response = new Response($samlResponse);
-
         $response->headers->set('Content-Type', 'xml');
 
         return $response;
