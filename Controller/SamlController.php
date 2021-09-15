@@ -59,6 +59,7 @@ class SamlController extends AbstractController
     public function artifactAction(Request $request)
     {
         var_dump($request->query->all());
+        var_dump($request->request->all());
         die;
     }
 }
