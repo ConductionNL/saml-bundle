@@ -56,4 +56,9 @@ class SamlController extends AbstractController
         return $response;
     }
 
+    public function artifactAction(Request $request)
+    {
+        var_dump($request->query->all());
+        die;
+    }
 }

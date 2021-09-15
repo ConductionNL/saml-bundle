@@ -5,4 +5,5 @@
         http://symfony.com/schema/routing/routing-1.0.xsd">
     <route id="conduction_saml_metadata" controller="conduction_saml.saml_controller:metadataAction" path="/saml" />
     <route id="conduction_saml_login" controller="conduction_saml.saml_controller:loginAction" path="/saml/login" />
+    <route id="conduction_saml_artifact" controller="conduction_saml.saml_controller:artifactAction" path="/saml/SLO/Artifact" />
 </routes>
