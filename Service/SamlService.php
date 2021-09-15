@@ -19,6 +19,8 @@ class SamlService
     {
         if(!$this->parameterBag->get('saml_enabled')){
             throw new \HttpException('There is no SAML connection enabled', 416);
+        } else {
+            return true;
         }
     }
 
