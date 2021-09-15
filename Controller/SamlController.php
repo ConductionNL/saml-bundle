@@ -33,6 +33,7 @@ class SamlController extends AbstractController
      */
     public function loginAction(Request $request)
     {
+        $this->samlService->checkSamlEnabled();
         $session = $targetPath = null;
 
         if ($request->hasSession()) {
@@ -42,8 +43,9 @@ class SamlController extends AbstractController
         $this->samlAuth->login($targetPath);
     }
 
-    public function metadataAction()
+    public function metadataAction(): Response
     {
+        $this->samlService->checkSamlEnabled();
         $message = $this->samlService->getMetaData();
         $xml = $this->xmlEncoder->encode($message, 'xml', ['remove_empty_tags' => true]);
 

@@ -3,6 +3,7 @@
 
 namespace Conduction\SamlBundle\Service;
 
+use http\Env\Response;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
 class SamlService
@@ -12,6 +13,13 @@ class SamlService
     public function __construct(ParameterBagInterface $parameterBag)
     {
         $this->parameterBag = $parameterBag;
+    }
+
+    public function checkSamlEnabled(): bool
+    {
+        if(!$this->parameterBag->get('saml_enabled')){
+            throw new \HttpException('There is no SAML connection enabled', 416);
+        }
     }
 
     public function getDigestMethod(): array

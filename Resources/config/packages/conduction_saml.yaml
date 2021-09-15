@@ -1,4 +1,6 @@
 parameters:
+  env(SAML_ENABLED): 'true'
+
   env(SAML_METADATA_LOCATION): 'https://example.com/saml/metadata'
   env(SAML_SIGN_ON_URL): 'https://example.com/saml2'
   env(SAML_LOGOUT_URL): 'https://example.com/saml2'
@@ -18,6 +20,8 @@ parameters:
   saml_logout_url: "%env(SAML_LOGOUT_URL)%"
   saml_metadata_url: "%env(SAML_METADATA_LOCATION)%"
 
+
+  saml_enabled: '%env(bool:SAML_ENABLED)%'
 
 saml:
   idp:
