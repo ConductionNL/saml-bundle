@@ -3,7 +3,7 @@
 
 namespace Conduction\SamlBundle\Service;
 
-use http\Env\Response;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
 class SamlService
@@ -18,7 +18,7 @@ class SamlService
     public function checkSamlEnabled(): bool
     {
         if(!$this->parameterBag->get('saml_enabled')){
-            throw new \HttpException('There is no SAML connection enabled', 416);
+            throw new HttpException(416, 'There is no SAML connection enabled');
         } else {
             return true;
         }
