@@ -20,6 +20,6 @@
 
         <service id="Conduction\SamlBundle\Service\SamlService" />
 
-        <service id="Conduction\CommonGroundBundle\Security\CommongroundSamlAdfsAuthenticator" />
+        <service id="Conduction\SamlBundle\Security\CommongroundSamlAdfsAuthenticator" />
     </services>
 </container>
