@@ -67,5 +67,7 @@ class SamlController extends AbstractController
         $response = new Response($samlResponse);
 
         $response->headers->set('Content-Type', 'xml');
+
+        return $response;
     }
 }
