@@ -66,7 +66,7 @@ class SamlController extends AbstractController
         }
         $data = $this->xmlEncoder->decode($samlResponse, 'xml');
         echo '<pre>';
-        var_dump($data);
+        var_dump($data['Assertion']);
 
         die;
     }
