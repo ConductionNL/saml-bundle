@@ -56,10 +56,16 @@ class SamlController extends AbstractController
         return $response;
     }
 
-    public function artifactAction(Request $request)
+    public function artifactAction(Request $request): Response
     {
-        var_dump($request->query->all());
-        var_dump($request->request->all());
-        die;
+        if($request->getMethod() == 'POST')
+        {
+            $samlResponse = $request->request->all()['SAMLResponse'];
+        } else {
+            $samlResponse = '';
+        }
+        $response = new Response($samlResponse);
+
+        $response->headers->set('Content-Type', 'xml');
     }
 }
