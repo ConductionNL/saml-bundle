@@ -60,7 +60,7 @@ class SamlController extends AbstractController
     {
         if($request->getMethod() == 'POST')
         {
-            $samlResponse = $request->request->all()['SAMLResponse'];
+            $samlResponse = base64_decode($request->request->all()['SAMLResponse']);
         } else {
             $samlResponse = '';
         }
