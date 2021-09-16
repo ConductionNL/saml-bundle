@@ -20,6 +20,8 @@
 
         <service id="Conduction\SamlBundle\Service\SamlService" />
 
-        <service id="Conduction\SamlBundle\Security\CommongroundSamlAdfsAuthenticator" />
+        <service id="Conduction\SamlBundle\Security\CommongroundSamlAdfsAuthenticator">
+            <argument key="$samlAuth" type="service" id="php-saml.auth"/>
+        </service>
     </services>
 </container>
