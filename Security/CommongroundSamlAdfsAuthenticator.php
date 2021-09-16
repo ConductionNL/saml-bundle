@@ -7,7 +7,7 @@
  *
  */
 
-namespace App\Security;
+namespace Conduction\SamlBundle\Security;
 
 use Conduction\CommonGroundBundle\Security\User\CommongroundUser;
 use Conduction\CommonGroundBundle\Service\CommonGroundService;
@@ -30,25 +30,17 @@ use Symfony\Component\Serializer\Encoder\XmlEncoder;
 
 class CommongroundSamlAdfsAuthenticator extends AbstractGuardAuthenticator
 {
-    private $em;
-    private $params;
-    private $commonGroundService;
-    private $csrfTokenManager;
-    private $router;
-    private $urlGenerator;
-    private $session;
+    private EntityManagerInterface $entityManager;
+    private ParameterBagInterface $parameterBag;
+    private UrlGeneratorInterface $urlGenerator;
     private Auth $samlAuth;
     private XmlEncoder $xmlEncoder;
 
-    public function __construct(EntityManagerInterface $em, ParameterBagInterface $params, CommonGroundService $commonGroundService, CsrfTokenManagerInterface $csrfTokenManager, RouterInterface $router, UrlGeneratorInterface $urlGenerator, SessionInterface $session, Auth $samlAuth)
+    public function __construct(EntityManagerInterface $entityManager, ParameterBagInterface $parameterBag, UrlGeneratorInterface $urlGenerator, Auth $samlAuth)
     {
-        $this->em = $em;
-        $this->params = $params;
-        $this->commonGroundService = $commonGroundService;
-        $this->csrfTokenManager = $csrfTokenManager;
-        $this->router = $router;
+        $this->entityManager = $entityManager;
+        $this->parameterBag = $parameterBag;
         $this->urlGenerator = $urlGenerator;
-        $this->session = $session;
         $this->samlAuth = $samlAuth;
         $this->xmlEncoder = new XmlEncoder(['xml_root_node_name' => 'md:EntityDescriptor']);
     }
@@ -143,7 +135,7 @@ class CommongroundSamlAdfsAuthenticator extends AbstractGuardAuthenticator
 
     public function onAuthenticationFailure(Request $request, AuthenticationException $exception)
     {
-        return new RedirectResponse($this->params->get('app_url').'/saml/Login');
+        return new RedirectResponse($this->parameterBag->get('app_url').'/saml/Login');
     }
 
     /**
@@ -161,8 +153,8 @@ class CommongroundSamlAdfsAuthenticator extends AbstractGuardAuthenticator
 
     protected function getLoginUrl()
     {
-        if ($this->params->get('app_subpath') && $this->params->get('app_subpath') != 'false') {
-            return '/'.$this->params->get('app_subpath').$this->router->generate('app_user_digispoof', [], UrlGeneratorInterface::RELATIVE_PATH);
+        if ($this->parameterBag->get('app_subpath') && $this->parameterBag->get('app_subpath') != 'false') {
+            return '/'.$this->parameterBag->get('app_subpath').$this->router->generate('app_user_digispoof', [], UrlGeneratorInterface::RELATIVE_PATH);
         } else {
             return $this->router->generate('app_user_digispoof', [], UrlGeneratorInterface::RELATIVE_PATH);
         }
