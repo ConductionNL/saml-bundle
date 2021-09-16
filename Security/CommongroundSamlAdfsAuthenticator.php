@@ -52,7 +52,6 @@ class CommongroundSamlAdfsAuthenticator extends AbstractGuardAuthenticator
      */
     public function supports(Request $request)
     {
-        var_dump($request->attributes->get('_route'), $request->getMethod());
         return 'conduction_saml_artifact' === $request->attributes->get('_route')
             && $request->isMethod('POST');
     }
@@ -70,7 +69,7 @@ class CommongroundSamlAdfsAuthenticator extends AbstractGuardAuthenticator
         return $credentials;
     }
 
-    public function samlResponseToUser(string $artifact): string
+    public function samlResponseToUser(string $artifact): array
     {
         $result = base64_decode($artifact);
 
