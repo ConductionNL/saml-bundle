@@ -62,6 +62,7 @@ class CommongroundSamlAdfsAuthenticator extends AbstractGuardAuthenticator
      */
     public function getCredentials(Request $request)
     {
+        var_dump($request->request->all());
         $credentials = [
             'SAMLResponse'   => $request->request->get('SAMLResponse'),
         ];
@@ -72,6 +73,8 @@ class CommongroundSamlAdfsAuthenticator extends AbstractGuardAuthenticator
     public function samlResponseToUser(string $artifact): array
     {
         $result = base64_decode($artifact);
+
+        var_dump(htmlentities($result));
 
         $data = $this->xmlEncoder->decode($result, 'xml');
         $user = [];
