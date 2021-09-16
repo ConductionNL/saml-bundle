@@ -99,7 +99,7 @@ class CommongroundSamlAdfsAuthenticator extends AbstractGuardAuthenticator
             }
         }
 
-        return end($nameIdExplode);
+        return $user;
     }
 
     public function getUser($credentials, UserProviderInterface $userProvider)
