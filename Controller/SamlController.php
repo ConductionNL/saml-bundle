@@ -65,6 +65,8 @@ class SamlController extends AbstractController
             $samlResponse = '';
         }
         $data = $this->xmlEncoder->decode($samlResponse, 'xml');
+        var_dump('conduction_saml_artifact' === $request->attributes->get('_route')
+            && $request->isMethod('POST'));
         die;
     }
 }
