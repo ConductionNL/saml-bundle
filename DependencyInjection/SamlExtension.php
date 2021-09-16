@@ -14,8 +14,10 @@ class SamlExtension extends Extension
     {
         $this->loadConfig($configs, $container);
 
-        $loader = new XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
-        $loader->load('services.xml');
+        if($container->getParameter('saml_enabled')){
+            $loader = new XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
+            $loader->load('services.xml');
+        }
     }
 
     private function loadConfig(array $configs, ContainerBuilder $container)
