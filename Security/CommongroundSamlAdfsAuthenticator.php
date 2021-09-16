@@ -133,12 +133,12 @@ class CommongroundSamlAdfsAuthenticator extends AbstractGuardAuthenticator
 
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey)
     {
-        return new RedirectResponse($this->urlGenerator->generate('app_default_index'));
+        return new RedirectResponse($request->request->get('RelayState'));
     }
 
     public function onAuthenticationFailure(Request $request, AuthenticationException $exception)
     {
-        return new RedirectResponse($this->parameterBag->get('app_url').'/saml/Login');
+        return new RedirectResponse($this->urlGenerator->generate('conduction_saml_login'));
     }
 
     /**

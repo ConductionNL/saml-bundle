@@ -40,6 +40,9 @@ class SamlController extends AbstractController
             $session = $request->getSession();
             $targetPath = $session->get('_security.main.target_path');
         }
+        if ($request->query->has('returnUrl')){
+            $targetPath = $request->query->get('returnUrl');
+        }
         $this->samlAuth->login($targetPath);
     }
 
