@@ -25,5 +25,9 @@
         <service id="Conduction\SamlBundle\Security\CommongroundSamlAdfsAuthenticator">
             <argument key="$samlAuth" type="service" id="php-saml.auth"/>
         </service>
+
+        <service id="Conduction\SamlBundle\DependencyInjection\TrimTrailingSlashEnvVarProcessor">
+            <tag name="container.env_var_processor"/>
+        </service>
     </services>
 </container>

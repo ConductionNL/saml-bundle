@@ -147,6 +147,6 @@ class CommongroundSamlAdfsAuthenticator extends AbstractGuardAuthenticator
 
     protected function getLoginUrl()
     {
-        return $this->router->generate('conduction_saml_login', [], UrlGeneratorInterface::RELATIVE_PATH);
+        return $this->router->generate('conduction_saml_login');
     }
 }
