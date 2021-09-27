@@ -128,7 +128,8 @@ class CommongroundSamlAdfsAuthenticator extends AbstractGuardAuthenticator
 
     public function onAuthenticationFailure(Request $request, AuthenticationException $exception)
     {
-        return new RedirectResponse($this->urlGenerator->generate('conduction_saml_login'));
+        echo $exception->getMessage();
+//        return new RedirectResponse($this->urlGenerator->generate('conduction_saml_login'));
     }
 
     /**
