@@ -101,7 +101,7 @@ class SamlService
                 'init:RequestInitiator' => [
                     '@xmlns:init' => 'urn:oasis:names:tc:SAML:profiles:SSO:request-init',
                     '@Binding' => 'urn:oasis:names:tc:SAML:profiles:SSO:request-init',
-                    '@Location' => str_replace('//saml', '/saml', $this->parameterBag->get('app_url') . '/saml/login'),
+                    '@Location' => $this->parameterBag->get('app_url') . '/saml/login',
                 ],
             ],
         ];
@@ -158,7 +158,7 @@ class SamlService
     {
         return [
             '@Binding' => 'urn:oasis:names:tc:SAML:2.0:bindings:SOAP',
-            '@Location' => $this->parameterBag->get('app_url') . 'saml/Artifact/SOAP',
+            '@Location' => $this->parameterBag->get('app_url') . '/saml/Artifact/SOAP',
             '@index' => '0',
         ];
     }
@@ -168,19 +168,19 @@ class SamlService
         return [
             [
                 '@Binding' => 'urn:oasis:names:tc:SAML:2.0:bindings:SOAP',
-                '@Location' => $this->parameterBag->get('app_url') . 'saml/SLO/SOAP',
+                '@Location' => $this->parameterBag->get('app_url') . '/saml/SLO/SOAP',
             ],
             [
                 '@Binding' => 'urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect',
-                '@Location' => $this->parameterBag->get('app_url') . 'saml/SLO/Redirect',
+                '@Location' => $this->parameterBag->get('app_url') . '/saml/SLO/Redirect',
             ],
             [
                 '@Binding' => 'urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST',
-                '@Location' => $this->parameterBag->get('app_url') . 'saml/SLO/POST',
+                '@Location' => $this->parameterBag->get('app_url') . '/saml/SLO/POST',
             ],
             [
                 '@Binding' => 'urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Artifact',
-                '@Location' => $this->parameterBag->get('app_url') . 'saml/SLO/Artifact',
+                '@Location' => $this->parameterBag->get('app_url') . '/saml/SLO/Artifact',
             ],
         ];
     }
@@ -190,17 +190,17 @@ class SamlService
         return [
             [
                 '@Binding'  => 'urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST',
-                '@Location' => $this->parameterBag->get('app_url').'saml/SAML2/POST',
+                '@Location' => $this->parameterBag->get('app_url').'/saml/SAML2/POST',
                 '@index'    => '0',
             ],
             [
                 '@Binding'  => 'urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST-SimpleSign',
-                '@Location' => $this->parameterBag->get('app_url').'saml/SAML2/POST-SimpleSign',
+                '@Location' => $this->parameterBag->get('app_url').'/saml/SAML2/POST-SimpleSign',
                 '@index'    => '1',
             ],
             [
                 '@Binding'  => 'urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Artifact',
-                '@Location' => $this->parameterBag->get('app_url').'saml/SAML2/Artifact',
+                '@Location' => $this->parameterBag->get('app_url').'/saml/SAML2/Artifact',
                 '@index'    => '2',
             ],
         ];
