@@ -11,6 +11,7 @@ namespace Conduction\SamlBundle\Security;
 
 use Conduction\CommonGroundBundle\Security\User\CommongroundUser;
 use Conduction\CommonGroundBundle\Service\CommonGroundService;
+use Conduction\SamlBundle\Security\User\AuthenticationUser;
 use Doctrine\ORM\EntityManagerInterface;
 use GuzzleHttp\Client;
 use OneLogin\Saml2\Auth;
@@ -62,7 +63,6 @@ class CommongroundSamlAdfsAuthenticator extends AbstractGuardAuthenticator
      */
     public function getCredentials(Request $request)
     {
-        var_dump($request->request->all());
         $credentials = [
             'SAMLResponse'   => $request->request->get('SAMLResponse'),
         ];
@@ -73,9 +73,6 @@ class CommongroundSamlAdfsAuthenticator extends AbstractGuardAuthenticator
     public function samlResponseToUser(string $artifact): array
     {
         $result = base64_decode($artifact);
-
-        var_dump(htmlentities($result));
-
         $data = $this->xmlEncoder->decode($result, 'xml');
         $user = [];
         foreach($data['Assertion']['AttributeStatement']['Attribute'] as $attribute)
@@ -116,14 +113,7 @@ class CommongroundSamlAdfsAuthenticator extends AbstractGuardAuthenticator
             $user['roles'][] = 'ROLE_USER';
         }
 
-        array_push($user['roles'], 'scope.vrc.requests.read');
-        array_push($user['roles'], 'scope.orc.orders.read');
-        array_push($user['roles'], 'scope.cmc.messages.read');
-        array_push($user['roles'], 'scope.bc.invoices.read');
-        array_push($user['roles'], 'scope.arc.events.read');
-        array_push($user['roles'], 'scope.irc.assents.read');
-
-        return new CommongroundUser($user['username'], $user['identityProvider'], $user['displayName'], null, $user['roles'], $user['username'], null, 'person', false);
+        return new AuthenticationUser($user['username'], $user['identityProvider'], $user['givenName'], $user['lastName'], $user['displayName'], null, $user['roles'], $user['username'], null);
     }
 
     public function checkCredentials($credentials, UserInterface $user)
@@ -156,10 +146,6 @@ class CommongroundSamlAdfsAuthenticator extends AbstractGuardAuthenticator
 
     protected function getLoginUrl()
     {
-        if ($this->parameterBag->get('app_subpath') && $this->parameterBag->get('app_subpath') != 'false') {
-            return '/'.$this->parameterBag->get('app_subpath').$this->router->generate('app_user_digispoof', [], UrlGeneratorInterface::RELATIVE_PATH);
-        } else {
-            return $this->router->generate('app_user_digispoof', [], UrlGeneratorInterface::RELATIVE_PATH);
-        }
+        return $this->router->generate('conduction_saml_login', [], UrlGeneratorInterface::RELATIVE_PATH);
     }
 }
