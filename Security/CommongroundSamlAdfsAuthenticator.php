@@ -113,7 +113,7 @@ class CommongroundSamlAdfsAuthenticator extends AbstractGuardAuthenticator
             $user['roles'][] = 'ROLE_USER';
         }
 
-        return new AuthenticationUser($user['username'], $user['identityProvider'], $user['givenName'], $user['lastName'], $user['displayName'], null, $user['roles'], $user['username'], null);
+        return new AuthenticationUser($user['username'], $user['identityProvider'], $user['givenName'], $user['surname'], $user['displayName'], null, $user['roles'], $user['username'], null);
     }
 
     public function checkCredentials($credentials, UserInterface $user)
