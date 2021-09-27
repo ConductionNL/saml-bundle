@@ -101,7 +101,7 @@ class SamlService
                 'init:RequestInitiator' => [
                     '@xmlns:init' => 'urn:oasis:names:tc:SAML:profiles:SSO:request-init',
                     '@Binding' => 'urn:oasis:names:tc:SAML:profiles:SSO:request-init',
-                    '@Location' => $this->parameterBag->get('app_url') . '/saml/Login',
+                    '@Location' => str_replace('//saml', '/saml', $this->parameterBag->get('app_url') . '/saml/login'),
                 ],
             ],
         ];
