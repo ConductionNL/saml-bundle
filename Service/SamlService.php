@@ -211,7 +211,7 @@ class SamlService
         return [
             '@xmlns:md'     => 'urn:oasis:names:tc:SAML:2.0:metadata',
             '@ID'           => '_09cbf496-24af-4cdc-91c3-b28bbda9f79f',
-            '@entityID'     => $this->parameterBag->get('app_url').'saml',
+            '@entityID'     => $this->parameterBag->get('app_url').'/saml',
             'md:Extensions' => $this->getExtensions(),
             'md:SPSSODescriptor' => $this->getSPSSODescriptor(),
             'md:KeyDescriptor' => $this->getKeyDescriptor(),
