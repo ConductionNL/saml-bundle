@@ -3,6 +3,7 @@
 
 namespace Conduction\SamlBundle\Service;
 
+use OneLogin\Saml2\Settings;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
@@ -15,9 +16,9 @@ class SamlService
         $this->parameterBag = $parameterBag;
     }
 
-    public function checkSamlEnabled(): bool
+    public function checkSamlEnabled($param): bool
     {
-        if(!$this->parameterBag->get('saml_enabled')){
+        if(!$this->parameterBag->get($param)){
             throw new HttpException(416, 'There is no SAML connection enabled');
         } else {
             return true;
@@ -83,7 +84,7 @@ class SamlService
             ],
         ];
     }
-    public function getExtensions(): array
+    public function getExtensions(Settings $settings): array
     {
         return [
             '@xmlns:alg' => 'urn:oasis:names:tc:SAML:metadata:algsupport',
@@ -92,7 +93,7 @@ class SamlService
         ];
     }
 
-    public function getSPSSODescriptor(): array
+    public function getSPSSODescriptor(Settings $settings): array
     {
         return [
             '@AuthnRequestsSigned' => '1',
@@ -139,7 +140,7 @@ class SamlService
             ],
         ];
     }
-    public function getKeyDescriptor(): array
+    public function getKeyDescriptor(Settings $settings): array
     {
         return [
             '@use' => 'signing',
@@ -147,14 +148,14 @@ class SamlService
                 '@xmlns:ds' => 'http://www.w3.org/2000/09/xmldsig#',
                 'ds:KeyName',
                 'ds:X509Data' => [
-                    'ds:X509Certificate' => str_replace("-----BEGIN CERTIFICATE-----\n", '', str_replace("\n-----END CERTIFICATE-----", '', $this->parameterBag->get('app_x509_cert'))),
+                    'ds:X509Certificate' => str_replace("-----BEGIN CERTIFICATE-----\n", '', str_replace("\n-----END CERTIFICATE-----", '', $settings->getSPData()['x509cert'])),
                 ],
             ],
             'md:EncryptionMethod' => $this->getEncryptionMethod(),
         ];
     }
 
-    public function getArtifactResolutionService(): array
+    public function getArtifactResolutionService(Settings $settings): array
     {
         return [
             '@Binding' => 'urn:oasis:names:tc:SAML:2.0:bindings:SOAP',
@@ -163,61 +164,39 @@ class SamlService
         ];
     }
 
-    public function getSingleLogoutService(): array
+    public function getSingleLogoutService(Settings $settings): array
     {
         return [
             [
-                '@Binding' => 'urn:oasis:names:tc:SAML:2.0:bindings:SOAP',
-                '@Location' => $this->parameterBag->get('app_url') . '/saml/SLO/SOAP',
-            ],
-            [
-                '@Binding' => 'urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect',
-                '@Location' => $this->parameterBag->get('app_url') . '/saml/SLO/Redirect',
-            ],
-            [
-                '@Binding' => 'urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST',
-                '@Location' => $this->parameterBag->get('app_url') . '/saml/SLO/POST',
-            ],
-            [
-                '@Binding' => 'urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Artifact',
-                '@Location' => $this->parameterBag->get('app_url') . '/saml/SLO/Artifact',
+                '@Binding' => $settings->getSPData()['singleLogoutService']['binding'],
+                '@Location' => $settings->getSPData()['singleLogoutService']['url'],
             ],
         ];
     }
 
-    public function getAssertionConsumerService(): array
+    public function getAssertionConsumerService(Settings $settings): array
     {
         return [
             [
-                '@Binding'  => 'urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST',
-                '@Location' => $this->parameterBag->get('app_url').'/saml/SAML2/POST',
+                '@Binding'  => $settings->getSPData()['assertionConsumerService']['binding'],
+                '@Location' => $settings->getSPData()['assertionConsumerService']['url'],
                 '@index'    => '0',
             ],
-            [
-                '@Binding'  => 'urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST-SimpleSign',
-                '@Location' => $this->parameterBag->get('app_url').'/saml/SAML2/POST-SimpleSign',
-                '@index'    => '1',
-            ],
-            [
-                '@Binding'  => 'urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Artifact',
-                '@Location' => $this->parameterBag->get('app_url').'/saml/SAML2/Artifact',
-                '@index'    => '2',
-            ],
         ];
     }
 
-    public function getMetaData(): array
+    public function getMetaData(Settings $settings): array
     {
         return [
             '@xmlns:md'     => 'urn:oasis:names:tc:SAML:2.0:metadata',
             '@ID'           => '_09cbf496-24af-4cdc-91c3-b28bbda9f79f',
-            '@entityID'     => $this->parameterBag->get('app_url').'/saml',
-            'md:Extensions' => $this->getExtensions(),
-            'md:SPSSODescriptor' => $this->getSPSSODescriptor(),
-            'md:KeyDescriptor' => $this->getKeyDescriptor(),
-            'md:ArtifactResolutionService' => $this->getArtifactResolutionService(),
-            'md:SingleLogoutService' => $this->getSingleLogoutService(),
-            'md:AssertionConsumerService' => $this->getAssertionConsumerService(),
+            '@entityID'     => $settings->getSPData()['entityId'],
+            'md:Extensions' => $this->getExtensions($settings),
+            'md:SPSSODescriptor' => $this->getSPSSODescriptor($settings),
+            'md:KeyDescriptor' => $this->getKeyDescriptor($settings),
+//            'md:ArtifactResolutionService' => $this->getArtifactResolutionService($settings),
+            'md:SingleLogoutService' => $this->getSingleLogoutService($settings),
+            'md:AssertionConsumerService' => $this->getAssertionConsumerService($settings),
         ];
     }
 }
