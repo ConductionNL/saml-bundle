@@ -8,11 +8,11 @@ use Symfony\Component\Security\Core\User\EquatableInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 
-/**
- * @method string getUserIdentifier()
- */
+
 class AuthenticationUser implements UserInterface, EquatableInterface
 {
+    private string $userIdentifier;
+
     /* The username display */
     private string $username;
 
@@ -43,8 +43,9 @@ class AuthenticationUser implements UserInterface, EquatableInterface
 
     private $person;
 
-    public function __construct(string $username = '', string $password = '', string $firstName = '', string $lastName = '', string $name = '', string $salt = null, array $roles = [], string $email = '', $locale = null, ?string $organization = null, ?string $person = null)
+    public function __construct(string $userIdentifier = '', string $username = '', string $password = '', string $firstName = '', string $lastName = '', string $name = '', string $salt = null, array $roles = [], string $email = '', $locale = null, ?string $organization = null, ?string $person = null)
     {
+        $this->userIdentifier = $userIdentifier;
         $this->username = $username;
         $this->password = $password;
         $this->firstName = $firstName;
@@ -62,6 +63,11 @@ class AuthenticationUser implements UserInterface, EquatableInterface
     public function __toString()
     {
         return $this->name;
+    }
+
+    public function getUserIdentifier(): string
+    {
+        return $this->userIdentifier;
     }
 
     public function getRoles()

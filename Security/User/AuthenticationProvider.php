@@ -28,7 +28,7 @@ class AuthenticationProvider implements UserProviderInterface
 
     public function loadUserByUsername($username)
     {
-        return $this->fetchUser($username);
+        return $this->fetchUser('', $username);
     }
 
     public function refreshUser(UserInterface $user)
@@ -39,6 +39,7 @@ class AuthenticationProvider implements UserProviderInterface
             );
         }
 
+        $userIdentifier = $user->getUserIdentifier();
         $username = $user->getUsername();
         $password = $user->getPassword();
         $firstName = $user->getFirstName();
@@ -46,7 +47,7 @@ class AuthenticationProvider implements UserProviderInterface
         $name = $user->getName();
         $email = $user->getEmail();
 
-        return $this->fetchUser($username, $password, $firstName, $lastName, $name, $email);
+        return $this->fetchUser($userIdentifier, $username, $password, $firstName, $lastName, $name, $email);
     }
 
     public function supportsClass($class)
@@ -54,9 +55,9 @@ class AuthenticationProvider implements UserProviderInterface
         return AuthenticationUser::class === $class;
     }
 
-    private function fetchUser($username, $password, $firstName, $lastName, $name, $email)
+    private function fetchUser($userIdentifier, $username, $password, $firstName, $lastName, $name, $email)
     {
-        return new AuthenticationUser($username, $password, $firstName, $lastName, $name, null, ['ROLE_USER'], $email);
+        return new AuthenticationUser($userIdentifier, $username, $password, $firstName, $lastName, $name, null, ['ROLE_USER'], $email);
     }
 
     public function __call($name, $arguments)
