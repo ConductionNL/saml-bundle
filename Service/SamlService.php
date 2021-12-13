@@ -195,7 +195,7 @@ class SamlService
             'md:SPSSODescriptor' => $this->getSPSSODescriptor($settings),
             'md:KeyDescriptor' => $this->getKeyDescriptor($settings),
 //            'md:ArtifactResolutionService' => $this->getArtifactResolutionService($settings),
-            'md:SingleLogoutService' => [$this->getSingleLogoutService(), $this->getAssertionConsumerService()],
+            'md:SingleLogoutService' => [$this->getSingleLogoutService($settings), $this->getAssertionConsumerService($settings)],
         ];
     }
 }
