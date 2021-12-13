@@ -167,21 +167,17 @@ class SamlService
     public function getSingleLogoutService(Settings $settings): array
     {
         return [
-            [
                 '@Binding' => $settings->getSPData()['singleLogoutService']['binding'],
                 '@Location' => $settings->getSPData()['singleLogoutService']['url'],
-            ],
         ];
     }
 
     public function getAssertionConsumerService(Settings $settings): array
     {
         return [
-            [
                 '@Binding'  => $settings->getSPData()['assertionConsumerService']['binding'],
                 '@Location' => $settings->getSPData()['assertionConsumerService']['url'],
                 '@index'    => '0',
-            ],
         ];
     }
 
