@@ -190,22 +190,12 @@ class SamlService
         return [
             '@xmlns:md'     => 'urn:oasis:names:tc:SAML:2.0:metadata',
             '@ID'           => '_09cbf496-24af-4cdc-91c3-b28bbda9f79f',
-<<<<<<< Updated upstream
             '@entityID'     => $settings->getSPData()['entityId'],
             'md:Extensions' => $this->getExtensions($settings),
             'md:SPSSODescriptor' => $this->getSPSSODescriptor($settings),
             'md:KeyDescriptor' => $this->getKeyDescriptor($settings),
 //            'md:ArtifactResolutionService' => $this->getArtifactResolutionService($settings),
-            'md:SingleLogoutService' => $this->getSingleLogoutService($settings),
-            'md:AssertionConsumerService' => $this->getAssertionConsumerService($settings),
-=======
-            '@entityID'     => $this->parameterBag->get('app_url').'/saml',
-            'md:Extensions' => $this->getExtensions(),
-            'md:SPSSODescriptor' => $this->getSPSSODescriptor(),
-            'md:KeyDescriptor' => $this->getKeyDescriptor(),
-            'md:ArtifactResolutionService' => $this->getArtifactResolutionService(),
             'md:SingleLogoutService' => [$this->getSingleLogoutService(), $this->getAssertionConsumerService()],
->>>>>>> Stashed changes
         ];
     }
 }
